@@ -20,9 +20,8 @@
 
     <modules>
         <module>spring-observer</module>
+        <module>strategy-factory</module>
     </modules>
-
-
 
 
 </project>
