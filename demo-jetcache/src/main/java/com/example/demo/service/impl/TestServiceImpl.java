@@ -1,10 +1,7 @@
 package com.example.demo.service.impl;
 
 
-import com.alicp.jetcache.anno.CacheInvalidate;
-import com.alicp.jetcache.anno.CacheRefresh;
-import com.alicp.jetcache.anno.CacheType;
-import com.alicp.jetcache.anno.Cached;
+import com.alicp.jetcache.anno.*;
 import com.example.demo.dao.TestDao;
 import com.example.demo.service.TestService;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +35,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @Cached(name="both-cache-", cacheType = CacheType.BOTH, key = "#id")
-    @CacheRefresh(refresh = 20, timeUnit = TimeUnit.SECONDS)
+    @CacheRefresh(refresh = 30, timeUnit = TimeUnit.SECONDS)
     public String testBothCache(String id) {
         log.error("both-cache failed, try to access db");
         return testDao.getData("both-" + id);
@@ -62,11 +59,4 @@ public class TestServiceImpl implements TestService {
         return "both-cache-" + id + " is deleted";
     }
 
-    @Override
-    @Cached(name="both-cache-", cacheType = CacheType.BOTH, key = "#id")
-    @CacheRefresh(refresh = 20, timeUnit = TimeUnit.SECONDS)
-    public String changeValue(String id) {
-        log.error("both-cache failed, try to access db");
-        return testDao.getData("both-" + id);
-    }
 }

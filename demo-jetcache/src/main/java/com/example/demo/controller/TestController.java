@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @RestController
@@ -45,14 +46,15 @@ public class TestController {
     }
 
     @GetMapping("/getDataBoth")
-    public String getDataBoth(String id){
+    public String getDataBoth(String id) throws InterruptedException {
         log.info("----------------getDataBoth start----------------");
         int i = 1;
         String result;
-        while(i++ < 100) {
+        while(i++ < 100000) {
             long start = System.currentTimeMillis();
             log.info("{} request uri {}, id {} start", "getDataBoth",i, id);
             result = testService.testBothCache(id);
+            TimeUnit.SECONDS.sleep(1);
             long end = System.currentTimeMillis();
             log.info("{} request uri {}, id {}, result {} end, cost {}", "getDataBoth", i, id, result, end - start);
         }
@@ -74,11 +76,6 @@ public class TestController {
     @GetMapping("/invalidateBoth")
     public String invalidateBoth() {
         return testService.deleteBoth("100");
-    }
-
-    @GetMapping("/changeValue")
-    public String changeValue(){
-        return testService.changeValue("100");
     }
 
 }
