@@ -1,4 +1,4 @@
-package com.example.dp.factory.abs.creator;
+package com.example.dp.factory.abs.factory;
 
 import com.example.dp.factory.abs.product.AbstractProductA;
 import com.example.dp.factory.abs.product.AbstractProductB;

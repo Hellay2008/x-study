@@ -1,8 +1,8 @@
 package com.example.dp.factory.abs;
 
-import com.example.dp.factory.abs.creator.AbstractFactory;
-import com.example.dp.factory.abs.creator.ConcreteFactory1;
-import com.example.dp.factory.abs.creator.ConcreteFactory2;
+import com.example.dp.factory.abs.factory.AbstractFactory;
+import com.example.dp.factory.abs.factory.ConcreteFactory1;
+import com.example.dp.factory.abs.factory.ConcreteFactory2;
 import com.example.dp.factory.abs.product.AbstractProductA;
 import com.example.dp.factory.abs.product.AbstractProductB;
 
