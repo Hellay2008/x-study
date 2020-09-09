@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class TestDaoImpl implements TestDao {
     @Override
     public String getData(String id) {
-        int cost = 2;
+        int cost = 60;
         log.info("param {}, start to query db", id);
         try {
             TimeUnit.SECONDS.sleep(cost);

@@ -1,4 +1,4 @@
-package com.example.demoasync.config;
+package com.example.aop.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
  */
 @Configuration
 @EnableAsync
-public class AsyncConfig1 {
+public class AsyncConfig {
 
     private static final int MAX_POOL_SIZE = 16;
 

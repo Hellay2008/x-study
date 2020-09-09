@@ -1,6 +1,7 @@
-package com.example.demoasync.service.impl;
+package com.example.aop.service.impl;
 
-import com.example.demoasync.service.TestService;
+import com.example.aop.annotation.MyAsync;
+import com.example.aop.service.TestService;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,7 @@ public class TestServiceImpl implements TestService {
     }
 
     @Override
-    @Async("asyncTaskExecutor")
+    @MyAsync("asyncTaskExecutor")
     public Future<Map<String, String>> asyncTask2(String s, Map<String, String> map) {
         long startTime = System.currentTimeMillis();
         try {
@@ -71,6 +72,12 @@ public class TestServiceImpl implements TestService {
         System.out.println(Thread.currentThread().getName() + "：Future<String> asyncTask(String s)，耗时：" + (endTime - startTime));
         map.put(s, "hello " + s);
         return CompletableFuture.completedFuture(map);
+    }
+
+    @MyAsync
+    @Override
+    public void sayHello(String name){
+        System.out.println("hello " + name);
     }
 
 }

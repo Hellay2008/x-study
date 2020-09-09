@@ -35,7 +35,7 @@ public class TestServiceImpl implements TestService {
 
     @Override
     @Cached(name="both-cache-", cacheType = CacheType.BOTH, key = "#id")
-    @CacheRefresh(refresh = 30, timeUnit = TimeUnit.SECONDS)
+    @CacheRefresh(refresh = 60, timeUnit = TimeUnit.SECONDS)
     public String testBothCache(String id) {
         log.error("both-cache failed, try to access db");
         return testDao.getData("both-" + id);

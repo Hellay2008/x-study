@@ -54,7 +54,7 @@ public class TestController {
             long start = System.currentTimeMillis();
             log.info("{} request uri {}, id {} start", "getDataBoth",i, id);
             result = testService.testBothCache(id);
-            TimeUnit.SECONDS.sleep(1);
+            TimeUnit.SECONDS.sleep(10);
             long end = System.currentTimeMillis();
             log.info("{} request uri {}, id {}, result {} end, cost {}", "getDataBoth", i, id, result, end - start);
         }

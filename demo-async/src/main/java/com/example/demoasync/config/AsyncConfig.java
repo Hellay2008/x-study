@@ -12,8 +12,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
-@Configuration
-@EnableAsync
+//@Configuration
+//@EnableAsync
 public class AsyncConfig extends AsyncConfigurerSupport {
 
 	private final Logger log = LoggerFactory.getLogger("AsyncConfig");

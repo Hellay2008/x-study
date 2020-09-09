@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 
 @SpringBootApplication
@@ -44,15 +45,25 @@ public class DemoAsyncApplication {
 //            long endTime = System.currentTimeMillis();
 //            System.out.println(Thread.currentThread().getName() + "：调用异步业务结束，耗时：" + (endTime - startTime));
 //            System.out.println("future.get=" + future.get().get("hhh"));
+//
+//            long startTime = System.currentTimeMillis();
+//            System.out.println(Thread.currentThread().getName() + "：开始调用异步业务");
+//            //无返回值
+//            Map<String, String> map = new HashMap<>();
+//            Future<Map<String, String>> future = testService.asyncTask2("hhh", map);
+//            long endTime = System.currentTimeMillis();
+//            System.out.println(Thread.currentThread().getName() + "：调用异步业务结束，耗时：" + (endTime - startTime) + "ms");
+//            System.out.println("future.get=" + future.get().get("hhh"));
+
 
             long startTime = System.currentTimeMillis();
             System.out.println(Thread.currentThread().getName() + "：开始调用异步业务");
             //无返回值
             Map<String, String> map = new HashMap<>();
-            Future<Map<String, String>> future = testService.asyncTask2("hhh", map);
+            CompletableFuture<Map<String, String>> future = testService.asyncTask3("hhh", map);
             long endTime = System.currentTimeMillis();
-            System.out.println(Thread.currentThread().getName() + "：调用异步业务结束，耗时：" + (endTime - startTime));
-            System.out.println("future.get=" + future.get().get("hhh"));
+            System.out.println(Thread.currentThread().getName() + "：调用异步业务结束，耗时：" + (endTime - startTime) + "ms");
+            future.thenAccept((e)->System.out.println(e.get("hhh") + "sss"));
 
         };
     }
