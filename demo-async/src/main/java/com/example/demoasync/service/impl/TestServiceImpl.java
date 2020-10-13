@@ -73,4 +73,17 @@ public class TestServiceImpl implements TestService {
         return CompletableFuture.completedFuture(map);
     }
 
+    @Async("asyncTaskExecutor")
+    public CompletableFuture<String> asyncTask4(String s){
+        long startTime = System.currentTimeMillis();
+        try {
+            //模拟耗时
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        String result = "hello " + s;
+        return CompletableFuture.completedFuture(result);
+    }
+
 }

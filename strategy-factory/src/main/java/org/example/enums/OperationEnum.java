@@ -12,7 +12,7 @@ public enum OperationEnum {
     public final String operation;
     public final String operationServiceName;
 
-    private static Map<String, OperationEnum> map = new HashMap<>();
+    private static final Map<String, OperationEnum> map = new HashMap<>();
 
     OperationEnum(String operation, String operationServiceName) {
         this.operation = operation;

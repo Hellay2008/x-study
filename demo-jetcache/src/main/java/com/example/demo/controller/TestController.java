@@ -54,7 +54,7 @@ public class TestController {
             long start = System.currentTimeMillis();
             log.info("{} request uri {}, id {} start", "getDataBoth",i, id);
             result = testService.testBothCache(id);
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(1);
             long end = System.currentTimeMillis();
             log.info("{} request uri {}, id {}, result {} end, cost {}", "getDataBoth", i, id, result, end - start);
         }
@@ -75,7 +75,12 @@ public class TestController {
 
     @GetMapping("/invalidateBoth")
     public String invalidateBoth() {
-        return testService.deleteBoth("100");
+//        return testService.deleteBoth("100");
+        return invalidate();
+    }
+
+    private String invalidate(){
+       return testService.deleteBoth("100");
     }
 
 }
