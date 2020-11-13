@@ -1,6 +1,7 @@
 package com.example.demoasync.service.impl;
 
 import com.example.demoasync.service.TestService;
+import org.apache.logging.log4j.ThreadContext;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -85,5 +86,4 @@ public class TestServiceImpl implements TestService {
         String result = "hello " + s;
         return CompletableFuture.completedFuture(result);
     }
-
 }

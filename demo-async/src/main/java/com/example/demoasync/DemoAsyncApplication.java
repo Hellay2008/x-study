@@ -65,12 +65,12 @@ public class DemoAsyncApplication {
 //            System.out.println(Thread.currentThread().getName() + "：调用异步业务结束，耗时：" + (endTime - startTime) + "ms");
 //            future.thenAccept((e)->System.out.println(e.get("hhh") + "sss"));
 
-            long startTime = System.currentTimeMillis();
-            System.out.println(Thread.currentThread().getName() + "：开始调用异步业务");
-            CompletableFuture<String> future = testService.asyncTask4("hhh");
-            long endTime = System.currentTimeMillis();
-            System.out.println(Thread.currentThread().getName() + "：调用异步业务结束，耗时：" + (endTime - startTime) + "ms");
-            future.thenAccept(System.out::println);
+//            long startTime = System.currentTimeMillis();
+//            System.out.println(Thread.currentThread().getName() + "：开始调用异步业务");
+//            CompletableFuture<String> future = testService.asyncTask4("hhh");
+//            long endTime = System.currentTimeMillis();
+//            System.out.println(Thread.currentThread().getName() + "：调用异步业务结束，耗时：" + (endTime - startTime) + "ms");
+//            future.thenAccept(System.out::println);
         };
     }
 

@@ -21,6 +21,7 @@
     <modules>
         <module>spring-observer</module>
         <module>strategy-factory</module>
+        <module>demo-sax-reader</module>
     </modules>
 
     <dependencies>
