@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -57,6 +58,18 @@ public class TestServiceImpl implements TestService {
     @CacheInvalidate(name="both-cache-", key = "#id")
     public String deleteBoth(String id){
         return "both-cache-" + id + " is deleted";
+    }
+
+    @Cached(name="repeatableInvalidate-", cacheType=CacheType.BOTH, key = "#key")
+    @CacheRefresh(refresh = 30, timeUnit = TimeUnit.SECONDS)
+    public String setValueByKey(String key){
+        return "hello " + new Random().nextInt();
+    }
+
+    @CacheInvalidate(name="repeatableInvalidate-", key = "'1'")
+    @CacheInvalidate(name="repeatableInvalidate-", key = "'2'")
+    public void deleteAll(){
+        log.info("delete execute");
     }
 
 }

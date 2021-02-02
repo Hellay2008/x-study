@@ -79,6 +79,17 @@ public class TestController {
         return invalidate();
     }
 
+    @GetMapping("/setValueByKey")
+    public String setValueByKey(String key){
+        return testService.setValueByKey(key);
+    }
+    @GetMapping("/deleteAll")
+    public String deleteAll(){
+        testService.deleteAll();
+        return "delete";
+    }
+
+
     private String invalidate(){
        return testService.deleteBoth("100");
     }

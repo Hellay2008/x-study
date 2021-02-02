@@ -10,4 +10,7 @@ public interface TestService {
     String deleteRemote(String id);
     String deleteLocal(String id);
     String deleteBoth(String id);
+
+    String setValueByKey(String key);
+    void deleteAll();
 }

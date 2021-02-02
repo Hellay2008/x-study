@@ -1357,4 +1357,9 @@ public class RedisService {
     public Cursor<TypedTuple<Object>> zScan(String key, ScanOptions options) {
         return redisTemplate.opsForZSet().scan(key, options);
     }
+
+    public void publishMessage(String topic, Object message){
+        redisTemplate.convertAndSend(topic, message);
+    }
+
 }

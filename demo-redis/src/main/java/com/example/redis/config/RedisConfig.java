@@ -1,14 +1,19 @@
 package com.example.redis.config;
 
+import com.example.redis.component.MessageReceiver;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.*;
+import org.springframework.data.redis.listener.PatternTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
@@ -19,6 +24,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @Author: zjjlive
  * @Description:
  */
+@Slf4j
 @Configuration
 @EnableCaching //开启注解
 public class RedisConfig extends CachingConfigurerSupport {
@@ -56,6 +62,23 @@ public class RedisConfig extends CachingConfigurerSupport {
         template.afterPropertiesSet();
 
         return template;
+    }
+
+    @Bean
+    RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
+                                            MessageListenerAdapter listenerAdapter) {
+
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        //配置监听通道
+        container.addMessageListener(listenerAdapter, new PatternTopic("test-topic"));// 通道的名字
+        log.info("初始化监听成功，监听通道：【test-topic】");
+        return container;
+    }
+
+    @Bean
+    MessageListenerAdapter listenerAdapter(MessageReceiver receiver) {
+        return new MessageListenerAdapter(receiver, "receiveMessage");
     }
 
     /**

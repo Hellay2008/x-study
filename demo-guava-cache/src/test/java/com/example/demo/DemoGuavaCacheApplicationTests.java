@@ -200,20 +200,9 @@ class DemoGuavaCacheApplicationTests {
 
     }
 
-
-
-
-
-
-
-
-
-
     public String createValue(String key) throws InterruptedException {
         TimeUnit.SECONDS.sleep(10);
         return "hello " + key;
     }
-
-
 
 }

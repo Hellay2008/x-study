@@ -22,6 +22,9 @@
         <module>spring-observer</module>
         <module>strategy-factory</module>
         <module>demo-sax-reader</module>
+        <module>demo-generic</module>
+        <module>demo-annotation</module>
+        <module>demo-proxy</module>
     </modules>
 
     <dependencies>
