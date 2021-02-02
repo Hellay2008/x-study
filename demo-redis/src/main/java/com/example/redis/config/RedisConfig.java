@@ -17,13 +17,6 @@ import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-/**
- * redis配置类
- * @program: springbootdemo
- * @Date: 2019/2/22 15:20
- * @Author: zjjlive
- * @Description:
- */
 @Slf4j
 @Configuration
 @EnableCaching //开启注解
@@ -42,23 +35,23 @@ public class RedisConfig extends CachingConfigurerSupport {
         template.setConnectionFactory(factory);
 
         //使用Jackson2JsonRedisSerializer来序列化和反序列化redis的value值（默认使用JDK的序列化方式）
-        Jackson2JsonRedisSerializer jacksonSeial = new Jackson2JsonRedisSerializer(Object.class);
+        Jackson2JsonRedisSerializer jacksonSerial = new Jackson2JsonRedisSerializer(Object.class);
 
         ObjectMapper om = new ObjectMapper();
         // 指定要序列化的域，field,get和set,以及修饰符范围，ANY是都有包括private和public
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         // 指定序列化输入的类型，类必须是非final修饰的，final修饰的类，比如String,Integer等会跑出异常
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        jacksonSeial.setObjectMapper(om);
+        jacksonSerial.setObjectMapper(om);
 
         // 值采用json序列化
-        template.setValueSerializer(jacksonSeial);
+        template.setValueSerializer(jacksonSerial);
         //使用StringRedisSerializer来序列化和反序列化redis的key值
         template.setKeySerializer(new StringRedisSerializer());
 
         // 设置hash key 和value序列化模式
         template.setHashKeySerializer(new StringRedisSerializer());
-        template.setHashValueSerializer(jacksonSeial);
+        template.setHashValueSerializer(jacksonSerial);
         template.afterPropertiesSet();
 
         return template;
@@ -66,19 +59,25 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
     RedisMessageListenerContainer container(RedisConnectionFactory connectionFactory,
-                                            MessageListenerAdapter listenerAdapter) {
+                                            MessageListenerAdapter listenerAdapter1, MessageListenerAdapter listenerAdapter2) {
 
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         //配置监听通道
-        container.addMessageListener(listenerAdapter, new PatternTopic("test-topic"));// 通道的名字
+        container.addMessageListener(listenerAdapter1, new PatternTopic("test-topic1"));// 通道的名字
+        container.addMessageListener(listenerAdapter2, new PatternTopic("test-topic2"));// 通道的名字
         log.info("初始化监听成功，监听通道：【test-topic】");
         return container;
     }
 
     @Bean
-    MessageListenerAdapter listenerAdapter(MessageReceiver receiver) {
-        return new MessageListenerAdapter(receiver, "receiveMessage");
+    MessageListenerAdapter listenerAdapter1(MessageReceiver receiver) {
+        return new MessageListenerAdapter(receiver, "receiveMessage1");
+    }
+
+    @Bean
+    MessageListenerAdapter listenerAdapter2(MessageReceiver receiver) {
+        return new MessageListenerAdapter(receiver, "receiveMessage2");
     }
 
     /**
